@@ -16,14 +16,12 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    precio: async (tipo, marca) => {
+    precio: async (_, { tipo, marca }) => {
       const params = {
         FunctionName: 'sageMakerPriceModelConsumer',
         InvocationType: 'RequestResponse',
-        Payload: JSON.stringify({ data: `${convertTipo(tipo)},${convertMarca(marca)}`})
+        Payload: JSON.stringify({ data: `${convertMarca(marca)},${convertTipo(tipo)}`})
       };
-
-      console.log('-----', params.Payload);
   
       return new Promise((resolve, reject) => {
         lambda.invoke(params, (error, data) => {
@@ -31,7 +29,7 @@ const resolvers = {
             console.error(JSON.stringify(error));
             reject(Error(`Price optimization error: ${JSON.stringify(error)}`));
           } else if (data) {
-            resolve(parseFloat(data));
+            resolve(parseFloat(data.Payload));
           }
         });
       });
