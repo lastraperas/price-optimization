@@ -1,9 +1,9 @@
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const { ApolloServer, gql } = require('apollo-server-lambda');
 const { convertTipo, convertMarca } = require('./textToNumber');
 
 const lambda = new AWS.Lambda({  
-  region: "us-east-1"
+  region: 'us-east-1'
 });
 
 // Construct a schema, using GraphQL schema language
@@ -18,8 +18,8 @@ const resolvers = {
   Query: {
     precio: async (tipo, marca) => {
       const params = {
-        FunctionName: "sageMakerPriceModelConsumer",
-        InvocationType: "RequestResponse",
+        FunctionName: 'sageMakerPriceModelConsumer',
+        InvocationType: 'RequestResponse',
         Payload: JSON.stringify({ data: `${convertTipo(tipo)},${convertMarca(marca)}`})
       };
 
