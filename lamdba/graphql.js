@@ -31,7 +31,7 @@ const resolvers = {
             console.error(JSON.stringify(error));
             reject(Error(`Price optimization error: ${JSON.stringify(error)}`));
           } else if (data) {
-            resolve(data);
+            resolve(parseFloat(data));
           }
         });
       });
