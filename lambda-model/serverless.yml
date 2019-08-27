@@ -1,0 +1,9 @@
+service: sagemaker-pricemodel-consumer
+
+provider:
+  name: aws
+  runtime: python3.6
+
+functions:
+  model:
+    handler: handler.main

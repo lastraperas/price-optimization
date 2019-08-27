@@ -18,7 +18,7 @@ const resolvers = {
   Query: {
     precio: async (_, { tipo, marca }) => {
       const params = {
-        FunctionName: 'sageMakerPriceModelConsumer',
+        FunctionName: 'sagemaker-price-model-consumer',
         InvocationType: 'RequestResponse',
         Payload: JSON.stringify({ data: `${convertMarca(marca)},${convertTipo(tipo)}`})
       };
